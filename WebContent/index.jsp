@@ -6,12 +6,12 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
-<link rel='stylesheet' type='text/css' href='./CSS/css.css'>
+<link rel='stylesheet' type='text/css' href='./css/css.css'>
 <title>BIT</title>
 </head>
 <body>
 <div id="backgroundImage">
-<%@ include file="../inc/loginBar.jsp" %>
+<%@ include file="../include/loginBar.jsp" %>
 <div id="container">
   <table>
     <tr height="100px">

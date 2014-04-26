@@ -1,13 +1,13 @@
 <%@page import="vo.CourseVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../inc/header.jsp" %>
+<%@ include file="../include/header.jsp" %>
 <jsp:useBean id="list" type="java.util.List<vo.CourseVo>" scope="request"/>
 <title>과정목록</title>
 </head>
 <body>
 <div id="backgroundImage">
-<%@ include file="../inc/loginBar.jsp" %>
+<%@ include file="../include/loginBar.jsp" %>
 <div id="container">
 <h1>과정 목록(byJSP)</h1>
 <div id="header">
@@ -34,4 +34,4 @@
 </table>
 </div>
 </div>
-<jsp:include page="../inc/footer.jsp"/>
+<jsp:include page="../include/footer.jsp"/>

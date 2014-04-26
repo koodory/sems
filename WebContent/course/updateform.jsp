@@ -2,12 +2,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="../inc/header.jsp" %>
+<%@ include file="../include/header.jsp" %>
 <title>과정변경폼</title>
 </head>
 <body>
 <div id="backgroundImage">
-<%@ include file="../inc/loginBar.jsp" %>
+<%@ include file="../include/loginBar.jsp" %>
 <div id="container">
 <h1>과정변경</h1>
 <form action='update.bit' method='post'>
@@ -37,4 +37,4 @@
 </div>
 </div>
 <c:set var="studyClass" value="Java48$$" scope="request"/>
-<jsp:include page="../inc/footer.jsp"/>
+<jsp:include page="../include/footer.jsp"/>

@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../inc/header.jsp" %>
+<%@ include file="../include/header.jsp" %>
 <title>사용자입력폼</title>
 </head>
 <body>
 <div id="backgroundImage">
-<%@ include file="../inc/loginBar.jsp" %>
+<%@ include file="../include/loginBar.jsp" %>
 <div id="container">
 <h1>사용자입력</h1>
 <form action="insert.bit" method="post">
@@ -51,6 +51,6 @@
 	</tr>
 </table>
 </form>
-<%@ include file="../inc/footer.jsp" %>
+<%@ include file="../include/footer.jsp" %>
 </div>
 </div>
