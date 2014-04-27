@@ -1,15 +1,26 @@
-<%@page import="vo.SubjectVo"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="../include/header.jsp" %>
-<meta http-equiv="Refresh" content="1;url=list.bit?pageNo=1&pageSize=10">
-<title>과목등록결과</title>
-</head>
-<body>
-<div id="backgroundImage">
-<%@ include file="../include/loginBar.jsp" %>
-<div id="container">
-<p>과목 등록 성공입니다.!!</p>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<meta http-equiv="Refresh" content="1; url=list.bit?pageNo=1&pageSize=10">
+<jsp:include page="/include/header.jsp"/>   
+  <title>과목등록결과</title>
+<jsp:include page="/include/loginBar.jsp"/>    
+<div id="smallBox">
+<h3>과목 등록 성공입니다!</h3>
 </div>
-</div>
-<jsp:include page="../include/footer.jsp"/>
+<jsp:include page="/include/footer.jsp"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    

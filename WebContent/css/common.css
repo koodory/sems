@@ -1,0 +1,44 @@
+@CHARSET "UTF-8";
+
+#container {
+	margin-left:auto; margin-right:auto; padding-left:0px; padding-right:0px;
+	background: url("../bit.png"); width:640px; height:800px;
+	background-repeat:no-repeat; 
+}
+
+#loginBar{ 
+	margin-top: 0px; margin-bottom: 160px; 
+	padding-top:5px; padding-left: 20px; padding-right:20px;
+  font-weight: bold;  font-size: 1.0em; color: white;
+  height: 30px; background-color: black; opacity:0.5;
+}
+
+.contentBox{margin-left:auto; margin-right:auto;}
+
+h3{text-align:center; font-weight:bold;}
+.control-label{float:left; width:70px;}
+
+.no-padding{padding-left:0px;}
+.no-margin{margin-left:0px;}
+.box-margin{padding-top: 60px; margin-bottom:50px;}
+.left-margin{margin-left:30px;}
+.mg{margin-left:20px;}
+
+.small{width:300px;}
+.medium{width:400px;}
+.large{width:500px;}
+
+.col-7s{float:left; width: 450px;}
+.col-6s{float:left; widht: 400px;}
+.col-5s{float:left; width: 350px;}
+.col-5x{float:left; width: 335px;}
+.col-4s{float:left; width: 300px;}
+.col-3s{float:left; width: 250px;}
+.col-2s{float:left; width: 200px;}
+.col-1s{float:left; width: 150px;}
+.col-1x{float:left; width: 120px;}
+.col-1f{width:120px;}
+.col-xs{width:50px;}
+
+.button-top{float:right; margin-bottom: 10px;}
+.button-bottom{float:right;}

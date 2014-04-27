@@ -49,7 +49,7 @@ public class MysqlUserDao implements UserDao {
 		try {
 			con = dbConnectionPool.getConnection();
 			stmt = con.prepareStatement(
-					"select UNO, EMAIL, NAME from SE_USERS"
+					"select UNO, EMAIL, NAME, TEL from SE_USERS"
 							+ " order by UNO desc"
 							+ " limit ?, ?");
 			stmt.setInt(1, (pageNo - 1) * pageSize);
@@ -61,7 +61,8 @@ public class MysqlUserDao implements UserDao {
 				list.add(new UserVo()
 													.setNo(rs.getInt("UNO"))
 													.setEmail(rs.getString("EMAIL"))
-													.setName(rs.getString("NAME")));
+													.setName(rs.getString("NAME"))
+													.setTel(rs.getString("TEL")));
 			}
 			return list;
 		} catch (Throwable e) {

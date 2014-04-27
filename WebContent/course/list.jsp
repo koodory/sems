@@ -1,37 +1,43 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="vo.CourseVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="../include/header.jsp" %>
-<jsp:useBean id="list" type="java.util.List<vo.CourseVo>" scope="request"/>
+  pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<jsp:include page="/include/header.jsp" />
 <title>과정목록</title>
-</head>
-<body>
-<div id="backgroundImage">
-<%@ include file="../include/loginBar.jsp" %>
-<div id="container">
-<h1>과정 목록(byJSP)</h1>
-<div id="header">
-<button type="button" class="btn btn-warning btn-xs"  
- onclick="location.href='/sems/index.jsp'"> HOME </button>
-<button type="button" class="btn btn-danger btn-xs" 
- onclick="location.href='form.jsp'"> 과정등록</button>
+<jsp:include page="/include/loginBar.jsp" />
+
+<div class="contentBox medium">
+<h3 style="margin-bottom:10px">과정 목록</h3>
+  <table class="table table-striped">
+    <tr>
+      <th>번호</th>
+      <th>과목명</th>
+    </tr>
+    <jsp:include page="/include/listButton.jsp" />
+    <c:forEach var="course" items="${list}">
+      <tr>
+        <td>${course.no}</td>
+        <td><a href='detail.bit?no=${course.no}'>${course.title}</a></td>
+      </tr>
+    </c:forEach>
+  </table>
 </div>
-<table>
-<tr>
-	<th>번호</th>
-	<th>과정명</th>
-	<th>시간</th>
-</tr>
-<%int i=0;%>
-<%for(CourseVo course : list) {%>
-<tr>
-	<td class=<%="row"+i%2%>><%=course.getNo() %></td>
-	<td class=<%="row"+i%2%>><a href='detail.bit?no=<%=course.getNo()%>'><%=course.getTitle() %></a></td>
-	<td class=<%="row"+i%2%>><%=course.getHour() %></td>
-</tr>
-   <%i++;%>
-<% } %>
-</table>
-</div>
-</div>
-<jsp:include page="../include/footer.jsp"/>
+<jsp:include page="/include/footer.jsp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
