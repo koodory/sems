@@ -5,10 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.sql.DataSource;
 
+import annotations.Component;
 import vo.SubjectVo;
 
+@Component()
 // SubjectVo의 setter/getter 사용
 public class MysqlSubjectDao implements SubjectDao {
 	DataSource dataSource;

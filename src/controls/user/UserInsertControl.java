@@ -7,20 +7,33 @@ import javax.servlet.ServletContext;
 
 import org.apache.commons.fileupload.FileItem;
 
+import annotations.Component;
 import controls.PageController;
 import vo.UserVo;
 import dao.UserDao;
-
+@Component("/user/insert.bit")
 public class UserInsertControl implements PageController {
 	UserDao userDao;
 	ServletContext servletContext;
-
+	String filePath;
+	
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
 	
 	public void setServletContext(ServletContext servletContext) {
 		this.servletContext = servletContext;
+	}
+	
+	private void setPhotoFile(Map<String, Object> model) throws Exception{
+		String fullPath = servletContext.getRealPath("/upload");
+		FileItem item = (FileItem)model.get("photo");
+		filePath = item.getName();
+
+		if(filePath != ""){
+		  File savedFile = new File(fullPath + "/" + item.getName());
+      item.write(savedFile);
+		}
 	}
 
 	@Override
@@ -30,12 +43,8 @@ public class UserInsertControl implements PageController {
 
 		} else {
 			try {
-				UserVo vo = new UserVo();
-				String fullPath = servletContext.getRealPath("/upload");
-				FileItem item = (FileItem)model.get("photo");
-				File savedFile = new File(fullPath + "/" + item.getName());
-				String filePath = item.getName();
-				item.write(savedFile); 
+				UserVo vo= new UserVo();
+				setPhotoFile(model);
 				vo.setEmail((String)model.get("email"));
 				vo.setPasswd((String)model.get("passwd"));
 				vo.setName((String)model.get("name"));

@@ -2,10 +2,11 @@ package controls.subject;
 
 import java.util.Map;
 
+import annotations.Component;
 import controls.PageController;
 import vo.SubjectVo;
 import dao.SubjectDao;
-
+@Component("/subject/insert.bit")
 public class SubjectInsertControl implements PageController {
 	SubjectDao subjectDao;
 

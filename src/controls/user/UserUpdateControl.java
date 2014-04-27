@@ -7,10 +7,11 @@ import javax.servlet.ServletContext;
 
 import org.apache.commons.fileupload.FileItem;
 
+import annotations.Component;
 import controls.PageController;
 import vo.UserVo;
 import dao.UserDao;
-
+@Component("/user/update.bit")
 public class UserUpdateControl implements PageController {
 	UserDao userDao;
 	ServletContext servletContext;

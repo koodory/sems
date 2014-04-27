@@ -2,10 +2,11 @@ package controls.course;
 
 import java.util.Map;
 
+import annotations.Component;
 import controls.PageController;
 import vo.CourseVo;
 import dao.CourseDao;
-
+@Component("/course/detail.bit")
 public class CourseDetailControl implements PageController {
 	CourseDao courseDao;
 

@@ -2,10 +2,12 @@ package controls.user;
 
 import java.util.List;
 import java.util.Map;
+
+import annotations.Component;
 import vo.UserVo;
 import controls.PageController;
 import dao.UserDao;
-
+@Component("/user/list.bit")
 public class UserListControl implements PageController {
 	UserDao userDao;
 

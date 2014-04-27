@@ -2,9 +2,10 @@ package controls.course;
 
 import java.util.Map;
 
+import annotations.Component;
 import controls.PageController;
 import dao.CourseDao;
-
+@Component("/course/delete.bit")
 public class CourseDeleteControl implements PageController {
 	CourseDao courseDao;
 

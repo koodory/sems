@@ -3,10 +3,11 @@ package controls.subject;
 import java.util.List;
 import java.util.Map;
 
+import annotations.Component;
 import controls.PageController;
 import vo.SubjectVo;
 import dao.SubjectDao;
-
+@Component("/subject/list.bit")
 public class SubjectListControl implements PageController {
 	SubjectDao subjectDao;
 

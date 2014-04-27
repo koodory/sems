@@ -8,8 +8,10 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import annotations.Component;
 import vo.CourseVo;
 
+@Component()
 public class MysqlCourseDao implements CourseDao {
 	DataSource dataSource;
 	

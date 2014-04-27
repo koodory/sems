@@ -2,9 +2,10 @@ package controls.user;
 
 import java.util.Map;
 
+import annotations.Component;
 import controls.PageController;
 import dao.UserDao;
-
+@Component("/user/delete.bit")
 public class UserDeleteControl implements PageController {
 	UserDao userDao;
 

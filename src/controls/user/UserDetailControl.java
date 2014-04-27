@@ -2,10 +2,11 @@ package controls.user;
 
 import java.util.Map;
 
+import annotations.Component;
 import controls.PageController;
 import vo.UserVo;
 import dao.UserDao;
-
+@Component("/user/detail.bit")
 public class UserDetailControl implements PageController {
 	UserDao userDao;
 
