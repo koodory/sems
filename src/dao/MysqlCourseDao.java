@@ -6,21 +6,22 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import util.DBConnectionPool;
+import javax.sql.DataSource;
+
 import vo.CourseVo;
 
 public class MysqlCourseDao implements CourseDao {
-	DBConnectionPool dbConnectionPool;
+	DataSource dataSource;
 	
-	public void setDBConnectionPool(DBConnectionPool dbConnectionPool) {
-		this.dbConnectionPool = dbConnectionPool;
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
 	}
 	
 	public void insert(CourseVo course) throws Throwable{
 		Connection con = null;
 		PreparedStatement stmt = null;
 		try {
-			con = dbConnectionPool.getConnection();
+			con = dataSource.getConnection();
 			stmt = con.prepareStatement(
 					"insert SE_COURS(TITLE, DEST, HOURS) values(?, ?, ?)");
 			stmt.setString(1, course.getTitle());
@@ -31,7 +32,7 @@ public class MysqlCourseDao implements CourseDao {
 			throw e;
 		} finally {
 			try {stmt.close();} catch (Throwable e2) {}
-			dbConnectionPool.returnConnection(con);
+			try {con.close();} catch (Throwable e2) {}
 		}
 	}
 	
@@ -41,7 +42,7 @@ public class MysqlCourseDao implements CourseDao {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			con = dbConnectionPool.getConnection();
+			con = dataSource.getConnection();
 			stmt = con.prepareStatement(
 					"select CNO, TITLE, HOURS from SE_COURS"
 							+ " order by CNO desc"
@@ -63,7 +64,7 @@ public class MysqlCourseDao implements CourseDao {
 		} finally { 
 			try {rs.close();} catch (Throwable e2) {}
 			try {stmt.close();} catch (Throwable e2) {}
-			dbConnectionPool.returnConnection(con);
+			try {con.close();} catch (Throwable e2) {}
 		}
 	}
 	
@@ -72,7 +73,7 @@ public class MysqlCourseDao implements CourseDao {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			con = dbConnectionPool.getConnection();
+			con = dataSource.getConnection();
 			stmt = con.prepareStatement(
 					"select CNO, TITLE, DEST, HOURS from SE_COURS"
 							+ " where CNO=?");
@@ -93,7 +94,7 @@ public class MysqlCourseDao implements CourseDao {
 		} finally { 
 			try {rs.close();} catch (Throwable e2) {}
 			try {stmt.close();} catch (Throwable e2) {}
-			dbConnectionPool.returnConnection(con);
+			try {con.close();} catch (Throwable e2) {}
 		}
 	}
 	
@@ -101,7 +102,7 @@ public class MysqlCourseDao implements CourseDao {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		try {
-			con = dbConnectionPool.getConnection();
+			con = dataSource.getConnection();
 			stmt = con.prepareStatement(
 					"update SE_COURS set"
 							+ " TITLE=?" 
@@ -117,7 +118,7 @@ public class MysqlCourseDao implements CourseDao {
 			throw e;
 		} finally { 
 			try {stmt.close();} catch (Throwable e2) {}
-			dbConnectionPool.returnConnection(con);
+			try {con.close();} catch (Throwable e2) {}
 		}
 	}
 	
@@ -125,7 +126,7 @@ public class MysqlCourseDao implements CourseDao {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		try {
-			con = dbConnectionPool.getConnection();
+			con = dataSource.getConnection();
 			stmt = con.prepareStatement(
 					"delete from SE_COURS where CNO=?"	);
 			stmt.setInt(1, no);
@@ -134,7 +135,7 @@ public class MysqlCourseDao implements CourseDao {
 			throw e;
 		} finally { 
 			try {stmt.close();} catch (Throwable e2) {}
-			dbConnectionPool.returnConnection(con);
+			try {con.close();} catch (Throwable e2) {}
 		}
 	}
 }
