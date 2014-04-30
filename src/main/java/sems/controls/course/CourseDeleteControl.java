@@ -2,17 +2,15 @@ package sems.controls.course;
 
 import java.util.Map;
 
-import sems.annotations.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import sems.controls.PageController;
 import sems.dao.CourseDao;
 @Component("/course/delete.bit")
 public class CourseDeleteControl implements PageController {
+  @Autowired
 	CourseDao courseDao;
-
-
-	public void setCourseDao(CourseDao courseDao) {
-		this.courseDao = courseDao;
-	}
 	
 	@Override
 	public String execute(Map<String, Object> model) {

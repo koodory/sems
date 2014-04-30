@@ -6,20 +6,18 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 
 import org.apache.commons.fileupload.FileItem;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import sems.annotations.Component;
 import sems.controls.PageController;
 import sems.dao.UserDao;
 import sems.vo.UserVo;
 @Component("/user/insert.bit")
 public class UserInsertControl implements PageController {
+  @Autowired
 	UserDao userDao;
 	ServletContext servletContext;
 	String filePath;
-	
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
-	}
 	
 	public void setServletContext(ServletContext servletContext) {
 		this.servletContext = servletContext;

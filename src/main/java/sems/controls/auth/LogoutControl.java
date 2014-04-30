@@ -4,7 +4,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import sems.annotations.Component;
+import org.springframework.stereotype.Component;
+
 import sems.controls.PageController;
 @Component("/auth/logout.bit")
 public class LogoutControl implements PageController {

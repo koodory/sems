@@ -6,18 +6,18 @@ import java.util.Map;
 
 import javax.servlet.http.Cookie;
 
-import sems.annotations.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import sems.controls.PageController;
 import sems.dao.DaoException;
 import sems.dao.UserDao;
 import sems.vo.UserVo;
 @Component("/auth/login.bit")
 public class LoginControl implements PageController {
+  @Autowired
 	UserDao userDao;
-	
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
-	}
+
 
 	@Override
 	public String execute(Map<String, Object> model) {
