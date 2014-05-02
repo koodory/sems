@@ -1,62 +1,57 @@
 package sems.controls.user;
 
 import java.io.File;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 
-import org.apache.commons.fileupload.FileItem;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import sems.controls.PageController;
 import sems.dao.UserDao;
 import sems.vo.UserVo;
-@Component("/user/insert.bit")
-public class UserInsertControl implements PageController {
-  @Autowired
+@Controller
+@RequestMapping("/user")
+public class UserInsertControl{
+	static long fileCount;
+	static String filename;
+	@Autowired
 	UserDao userDao;
+
+	@Autowired
 	ServletContext servletContext;
-	String filePath;
-	
-	public void setServletContext(ServletContext servletContext) {
-		this.servletContext = servletContext;
+
+	@RequestMapping(value="/insert", method=RequestMethod.GET)
+	public String inserForm() {
+		return "/user/form.jsp";
 	}
 	
-	private void setPhotoFile(Map<String, Object> model) throws Exception{
+	private void setPhotoFile(
+			UserVo vo,
+			MultipartFile file) throws Exception{
 		String fullPath = servletContext.getRealPath("/upload");
-		FileItem item = (FileItem)model.get("photo");
-		filePath = item.getName();
-
-		if(filePath != ""){
-		  File savedFile = new File(fullPath + "/" + item.getName());
-      item.write(savedFile);
+		if (!file.isEmpty()) {
+			String filename = 
+					System.currentTimeMillis() + "_" + ++fileCount;
+			File savedFile = new File(fullPath + "/" + filename);
+			file.transferTo(savedFile); 
+			vo.setPhoto(filename);
 		}
 	}
 
-	@Override
-	public String execute(Map<String, Object> model) {
-		if (model.get("email") == null) {
-			return "/user/form.jsp";
-
-		} else {
-			try {
-				UserVo vo= new UserVo();
-				setPhotoFile(model);
-				vo.setEmail((String)model.get("email"));
-				vo.setPasswd((String)model.get("passwd"));
-				vo.setName((String)model.get("name"));
-				vo.setTel((String)model.get("tel"));
-				vo.setFax((String)model.get("fax"));
-				vo.setPostno((String)model.get("postno"));
-				vo.setAddress((String)model.get("address"));
-				vo.setPhoto(filePath);
+	@RequestMapping(value="/insert", method=RequestMethod.POST)
+	public String update(UserVo vo,
+			@RequestParam("file") MultipartFile file) {
+		try {
+       setPhotoFile(vo, file);
 				userDao.insert(vo);
 				return "/user/insert.jsp";
-
-			} catch (Throwable ex) {
-				throw new Error(ex);
-			}
+		} catch (Throwable ex) {
+			throw new Error(ex);
 		}
 	}
 }

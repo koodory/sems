@@ -1,21 +1,19 @@
 package sems.controls.course;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import sems.controls.PageController;
 import sems.dao.CourseDao;
-@Component("/course/delete.bit")
-public class CourseDeleteControl implements PageController {
+@Controller
+@RequestMapping("/course")
+public class CourseDeleteControl{
   @Autowired
 	CourseDao courseDao;
 	
-	@Override
-	public String execute(Map<String, Object> model) {
+  @RequestMapping("/delete")
+	public String delete(int no) {
 		try {
-			int no = Integer.parseInt((String)model.get("no"));
 			courseDao.delete(no);
 			return "redirect:list.bit?pageNo=1&pageSize=10";
 			

@@ -10,12 +10,16 @@
 <h3 style="margin-bottom:50px">업로드 결과</h3>
 <table style="margin-left:auto; margin-right:auto;">
 <tr>
-  <td colspan=2><img src="../upload/${file1.name}" 
+  <td colspan=2><img src="../upload/${filename}" 
   style="width:150px; height:200px;"></td>
 </tr>
 <tr >
   <td style="width:50px"><br>이름</td>
-  <td><br>${file1.name}</td>
+  <td><br>${name}</td>
+</tr>
+<tr>
+  <td style="width:50px"><br>파일명</td>
+  <td><br>${filename}</td>
 </tr>
 <tr>
   <td colspan=2 style="text-align:center;"><br>

@@ -1,26 +1,25 @@
 package sems.controls.subject;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import sems.controls.PageController;
 import sems.dao.SubjectDao;
 import sems.vo.SubjectVo;
-@Component("/subject/list.bit")
-public class SubjectListControl implements PageController {
+@Controller
+@RequestMapping("/subject")
+public class SubjectListControl{
   @Autowired
 	SubjectDao subjectDao;
 
-	@Override
-  public String execute(Map<String, Object> model) {
+  @RequestMapping("/list")
+  public String execute(int pageNo, int pageSize, Model model) {
 		try {
-			int pageNo = Integer.parseInt((String)model.get("pageNo")); 
-			int pageSize = Integer.parseInt((String)model.get("pageSize")); 
 			List<SubjectVo> list = subjectDao.list(pageNo, pageSize);
-			model.put("list", list);
+			model.addAttribute("list", list);
 			return "/subject/list.jsp";
 			
 		} catch (Throwable ex) {

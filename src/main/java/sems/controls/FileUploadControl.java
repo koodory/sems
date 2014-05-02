@@ -5,44 +5,43 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 
-import org.apache.commons.fileupload.FileItem;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import sems.vo.FileVo;
-@Component("/file/upload.bit")
-public class FileUploadControl implements PageController {
+@Controller
+@RequestMapping("/file")
+public class FileUploadControl{
+	static long fileCount;
+
+	@Autowired
 	ServletContext servletContext;
-	String filePath;
-	
-	public void setServletContext(ServletContext servletContext) {
-		this.servletContext = servletContext;
-	}
-	
-	private void setPhotoFile(Map<String, Object> model) throws Exception{
-		String fullPath = servletContext.getRealPath("/upload");
-		FileItem item = (FileItem)model.get("file1");
-		filePath = item.getName();
 
-		if(filePath != ""){
-		  File savedFile = new File(fullPath + "/" + item.getName());
-      item.write(savedFile);
-		}
-	}
+	@RequestMapping("/upload")
+	private String setPhotoFile(
+			String name,
+			@RequestParam("file") MultipartFile file,
+			Model model){
+		try{
+			String fullPath = servletContext.getRealPath("/upload");
+			if(!file.isEmpty()){
+				String filename =
+						System.currentTimeMillis()+"_" + ++fileCount;
+				File savedFile = new File(fullPath + "/" + filename);
+				file.transferTo(savedFile);
 
-	@Override
-	public String execute(Map<String, Object> model) {
-		try {
-			FileVo file = new FileVo();
-			setPhotoFile(model);
-			if(filePath !=""){
-				file.setFilename(filePath);
+				model.addAttribute("name",name);
+				model.addAttribute("filename",filename);
 			}
 			return "/file/uploadResult.jsp";
 		} catch (Throwable ex) {
 			throw new Error(ex);
 		}
 	}
-
 }
 
 

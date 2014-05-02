@@ -1,22 +1,20 @@
 package sems.controls.subject;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import sems.controls.PageController;
 import sems.dao.SubjectDao;
-@Component("/subject/delete.bit")
-public class SubjectDeleteControl implements PageController {
+@Controller
+@RequestMapping("/subject")
+public class SubjectDeleteControl{
   @Autowired
 	SubjectDao subjectDao;
-
 	
-	@Override
-	public String execute(Map<String, Object> model) {
+	@RequestMapping(value="/delete", method=RequestMethod.GET)
+	public String delete(int no) {
 		try {
-			int no = Integer.parseInt((String)model.get("no"));
 			subjectDao.delete(no);
 			return "redirect:list.bit?pageNo=1&pageSize=10";
 			

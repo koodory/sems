@@ -7,57 +7,60 @@ import javax.servlet.ServletContext;
 
 import org.apache.commons.fileupload.FileItem;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import sems.controls.PageController;
 import sems.dao.UserDao;
 import sems.vo.UserVo;
-@Component("/user/update.bit")
-public class UserUpdateControl implements PageController {
-  @Autowired
+@Controller
+@RequestMapping("/user")
+public class UserUpdateControl{
+	static long fileCount;
+	static String filename;
+	@Autowired
 	UserDao userDao;
+
+	@Autowired
 	ServletContext servletContext;
-	String filePath;
 
-	public void setServletContext(ServletContext servletContext) {
-		this.servletContext = servletContext;
+	@RequestMapping(value="/update", method=RequestMethod.GET)
+	public String updateForm(int no, Model model){
+		try {
+			UserVo user = userDao.detail(no);
+			model.addAttribute("user", user);
+			return "/user/updateform.jsp";
+		} catch (Throwable ex) {
+			throw new Error(ex);
+		}
 	}
-
-	private void setPhotoFile(Map<String, Object> model) throws Exception{
+	
+	private void setPhotoFile(
+			UserVo vo,
+			MultipartFile file,
+			Model model) throws Exception{
 		String fullPath = servletContext.getRealPath("/upload");
-		FileItem item = (FileItem)model.get("photo");
-		filePath = item.getName();
-
-		if(filePath != ""){
-		  File savedFile = new File(fullPath + "/" + item.getName());
-      item.write(savedFile);
+		if (!file.isEmpty()) {
+			String filename = 
+					System.currentTimeMillis() + "_" + ++fileCount;
+			File savedFile = new File(fullPath + "/" + filename);
+			file.transferTo(savedFile); 
+			
+			model.addAttribute("photo", filename);
+			vo.setPhoto(filename);
 		}
 	}
 
-	@Override
-	public String execute(Map<String, Object> model) {
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public String update(UserVo vo, Model model,
+			@RequestParam("file") MultipartFile file) {
 		try {
-			if (model.get("email") == null) { // 변경폼 출력
-				int no = Integer.parseInt((String)model.get("no"));
-				UserVo user = userDao.detail(no);
-				model.put("user", user);
-				return "/user/updateform.jsp";
-
-			} else { // 변경 수행
-				UserVo vo = new UserVo();
-				setPhotoFile(model);
-				vo.setNo(Integer.parseInt((String)model.get("no")));
-				vo.setEmail((String)model.get("email"));
-				vo.setPasswd((String)model.get("passwd"));
-				vo.setName((String)model.get("name"));
-				vo.setTel((String)model.get("tel"));
-				vo.setFax((String)model.get("fax"));
-				vo.setPostno((String)model.get("postno"));
-				vo.setAddress((String)model.get("address"));
-				vo.setPhoto(filePath);
+       setPhotoFile(vo, file, model);
 				userDao.update(vo);
 				return "redirect:detail.bit?no=" + vo.getNo();
-			}
 		} catch (Throwable ex) {
 			throw new Error(ex);
 		}

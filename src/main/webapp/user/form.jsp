@@ -68,7 +68,7 @@
     <div class="form-group">
       <label for="photo" class="control-label no-margin">사진</label>
       <div class="col-5s">
-       <input type='file' id="photo" name='photo'
+       <input type='file' id="photo" name='file'
         class="form-control" value='${user.photo}'>
     </div>
     </div>

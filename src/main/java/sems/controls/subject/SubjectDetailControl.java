@@ -1,31 +1,29 @@
 package sems.controls.subject;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import sems.controls.PageController;
 import sems.dao.SubjectDao;
 import sems.vo.SubjectVo;
-@Component("/subject/detail.bit")
-public class SubjectDetailControl implements PageController {
+@Controller
+@RequestMapping("/subject")
+public class SubjectDetailControl{
   @Autowired
 	SubjectDao subjectDao;
 	
-	@Override
-	public String execute(Map<String, Object> model) {
+  @RequestMapping("/detail")
+	public String detail(int no, Model model) {
 		try {
-			int no = Integer.parseInt((String)model.get("no")); 
 			SubjectVo subject = subjectDao.detail(no);
-			model.put("subject", subject);
+			model.addAttribute("subject", subject);
 			return "/subject/detail.jsp";
 			
 		} catch (Throwable ex) {
 			throw new Error(ex);
 		}
 	}
-
 }
 
 

@@ -1,64 +1,60 @@
 package sems.controls.auth;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import sems.controls.PageController;
 import sems.dao.DaoException;
 import sems.dao.UserDao;
 import sems.vo.UserVo;
-@Component("/auth/login.bit")
-public class LoginControl implements PageController {
-  @Autowired
+
+@Controller
+@RequestMapping("/auth")
+public class LoginControl {
+	@Autowired
 	UserDao userDao;
 
+	@RequestMapping(value="/login", method=RequestMethod.GET)
+	public String loginForm() {
+		return "/auth/login.jsp";
+	} 
 
-	@Override
-	public String execute(Map<String, Object> model) {
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public String login(
+			String email,
+			String password,
+			@RequestParam(required=false)String saveEmail, //데이터가 없어도 처리
+			HttpSession session,
+			HttpServletResponse response){
 		try {
-			if (model.get("email") == null) { // 로그인 폼 출력 
-				return "/auth/login.jsp";
-				
-			} else { // 로그인 수행 
-				String email = (String)model.get("email");
-				String password = (String)model.get("password");
-				String saveEmail = (String)model.get("saveEmail");
-				
-				UserVo userVo = null;
-				
-				try {
-					userVo = userDao.getUser(email, password);
-				} catch (DaoException e) { // 로그인 실패!
-					return "redirect:login.bit";
-				}
-				
-				HashMap<String,Object> sessionMap = new HashMap<String,Object>();
-				sessionMap.put("loginUser", userVo);
-				model.put("sessionMap", sessionMap);
-				
-				if (saveEmail != null) {
-					ArrayList<Cookie> cookies = new ArrayList<Cookie>();
-					
-					Cookie cookie = new Cookie("loginEmail", email);
-					cookie.setDomain("s28.java48.com"); // 서버 범위
-					cookie.setPath("/sems");					// 하위 폴더 범위
-					
-					cookies.add(cookie);
-					model.put("cookies", cookies);
-				}
-				return "redirect:/sems/index.jsp";
+			UserVo userVo = null;
+			try{
+				userVo = userDao.getUser(email, password);
+			} catch (DaoException e) { // 로그인 실패!
+				return "redirect:login.bit";
 			}
-		} catch (Throwable ex) {
+
+			session.setAttribute("loginUser", userVo);
+
+			if (saveEmail != null) {
+
+				Cookie cookie = new Cookie("loginEmail", email);
+				cookie.setDomain("s28.java48.com"); // 서버 범위
+				cookie.setPath("/sems");					// 하위 폴더 범위
+
+				response.addCookie(cookie);
+			}
+			return "redirect:/index.jsp";
+		}catch (Throwable ex) {
 			throw new Error(ex);
 		}
 	}
-
 }
 
 

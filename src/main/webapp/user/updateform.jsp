@@ -28,7 +28,7 @@
     <div class="form-group">
       <label for="email" class="control-label no-margin">이메일</label>
       <div class="col-5s">
-        <input type='text' id="email" name='email' class="form-control"
+        <input type='email' id="email" name='email' class="form-control"
           value='${user.email}'>
       </div>
     </div>
@@ -44,7 +44,7 @@
     <div class="form-group">
       <label for="tel" class="control-label no-margin">전화번호</label>
       <div class="col-5s">
-        <input type='text' id="tel" name='tel' class="form-control"
+        <input type='tel' id="tel" name='tel' class="form-control"
           value='${user.tel}'>
       </div>
     </div>
@@ -52,7 +52,7 @@
     <div class="form-group">
       <label for="fax" class="control-label no-margin"> 팩스</label>
       <div class="col-1s">
-        <input type='text' id="fax" name='fax' class="form-control"
+        <input type='tel' id="fax" name='fax' class="form-control"
           value='${user.fax}'>
       </div>
       <label for="postno" class="control-label"> 우편번호</label>
@@ -73,7 +73,7 @@
     <div class="form-group">
       <label for="photo" class="control-label no-margin">사진</label>
       <div class="col-5s">
-        <input type='file' id="photo" name='photo' class="form-control"
+        <input type='file' id="photo" name='file' class="form-control"
           value='${user.photo}'>
       </div>
     </div>

@@ -1,24 +1,23 @@
 package sems.controls.course;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import sems.controls.PageController;
 import sems.dao.CourseDao;
 import sems.vo.CourseVo;
-@Component("/course/detail.bit")
-public class CourseDetailControl implements PageController {
+@Controller
+@RequestMapping("/course")
+public class CourseDetailControl{
   @Autowired
 	CourseDao courseDao;
 	
-	@Override
-	public String execute(Map<String, Object> model) {
+  @RequestMapping("/detail")
+	public String execute(int no, Model model) {
 		try {
-			int no = Integer.parseInt((String)model.get("no")); 
 			CourseVo course = courseDao.detail(no);
-			model.put("course", course);
+			model.addAttribute("course", course);
 			return "/course/detail.jsp";
 	
 		} catch (Throwable ex) {
