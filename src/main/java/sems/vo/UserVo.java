@@ -4,17 +4,15 @@ import java.io.Serializable;
 
 public class UserVo implements Serializable {
   private static final long serialVersionUID = 1L;
-	private int 			no;
+	private int 		no;
 	private String 	email;
-	private String 	passwd;
+	private String 	password;
 	private String 	name;
 	private String 	tel;
-
 	private String 	fax;
-	private String 	postno;
+	private String 	postNo;
 	private String 	address;
-	private String 	photo;
-	
+	private String 	photoPath;
 	public int getNo() {
 		return no;
 	}
@@ -22,7 +20,6 @@ public class UserVo implements Serializable {
 		this.no = no;
 		return this;
 	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -30,15 +27,13 @@ public class UserVo implements Serializable {
 		this.email = email;
 		return this;
 	}
-
-	public String getPasswd() {
-		return passwd;
+	public String getPassword() {
+		return password;
 	}
-	public UserVo setPasswd(String passwd) {
-		this.passwd = passwd;
+	public UserVo setPassword(String password) {
+		this.password = password;
 		return this;
 	}
-
 	public String getName() {
 		return name;
 	}
@@ -46,7 +41,6 @@ public class UserVo implements Serializable {
 		this.name = name;
 		return this;
 	}
-
 	public String getTel() {
 		return tel;
 	}
@@ -54,7 +48,6 @@ public class UserVo implements Serializable {
 		this.tel = tel;
 		return this;
 	}
-
 	public String getFax() {
 		return fax;
 	}
@@ -62,15 +55,13 @@ public class UserVo implements Serializable {
 		this.fax = fax;
 		return this;
 	}
-
-	public String getPostno() {
-		return postno;
+	public String getPostNo() {
+		return postNo;
 	}
-	public UserVo setPostno(String postno) {
-		this.postno = postno;
+	public UserVo setPostNo(String postNo) {
+		this.postNo = postNo;
 		return this;
 	}
-
 	public String getAddress() {
 		return address;
 	}
@@ -78,13 +69,14 @@ public class UserVo implements Serializable {
 		this.address = address;
 		return this;
 	}
-
-	public String getPhoto() {
-		return photo;
+	public String getPhotoPath() {
+		return photoPath;
 	}
-	public UserVo setPhoto(String photo) {
-		this.photo = photo;
+	public UserVo setPhotoPath(String photoPath) {
+		this.photoPath = photoPath;
 		return this;
 	}
-
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 }

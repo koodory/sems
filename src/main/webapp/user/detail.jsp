@@ -20,7 +20,7 @@
 <table class="table">
 <tr>
   <td rowspan = 5>
-   <img src="../upload/${user.photo}" 
+   <img src="../upload/${user.photoPath}" 
    style="width:150px; height:200px; margin-right:0px;">
   </td>
   <th style="width:90px;">번호</th>
@@ -44,11 +44,11 @@
 </tr>
 <tr>
   <th>주소</th>
-  <td colspan = 2>(${user.postno})${user.address}</td>
+  <td colspan = 2>(${user.postNo})${user.address}</td>
 </tr>
 <tr>
   <th>사진경로</th>
-  <td colspan = 2>${user.photo}</td>
+  <td colspan = 2>${user.photoPath}</td>
 </tr>
 </table>
 </div>

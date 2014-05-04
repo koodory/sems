@@ -28,10 +28,10 @@
     </div>
 
     <div class="form-group">
-      <label for="passwd" class="control-label no-margin">비밀번호</label>
+      <label for="password" class="control-label no-margin">비밀번호</label>
       <div class="col-5s">
-        <input type="password" id="passwd" name='passwd' class="form-control"
-          value='${user.passwd}'>
+        <input type="password" id="password" name='password' class="form-control"
+          value='${user.password}'>
       </div>
     </div>
 
@@ -49,11 +49,11 @@
         <input type='text' id="fax" name='fax' class="form-control"
           value='${user.fax}'>
       </div>
-      <label for="postno" class="control-label">
+      <label for="postNo" class="control-label">
       우편번호</label> 
        <div class="col-1x">
-       <input type='text' id="postno"
-        name='postno' class="form-control" value='${user.postno}'>
+       <input type='text' id="postNo"
+        name='postNo' class="form-control" value='${user.postNo}'>
       </div>
     </div>
 
@@ -69,7 +69,7 @@
       <label for="photo" class="control-label no-margin">사진</label>
       <div class="col-5s">
        <input type='file' id="photo" name='file'
-        class="form-control" value='${user.photo}'>
+        class="form-control" value='${user.photoPath}'>
     </div>
     </div>
     <jsp:include page="/include/insertButton.jsp" />

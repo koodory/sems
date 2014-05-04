@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sems.dao.SubjectDao">
+	<resultMap type="sems.vo.SubjectVo" id="subjectMap">
+		<id column="SNO" property="no" />
+		<result column="TITLE" property="title" />
+		<result column="DEST" property="description" />
+	</resultMap>
+
+	<insert id="insert" parameterType="subjectVo">
+		insert into
+		SE_SUBJS(TITLE,DEST)
+		values (#{title}, #{description})
+	</insert>
+
+	<select id="detail" parameterType="int" resultMap="subjectMap">
+		select SNO, TITLE, DEST
+		from SE_SUBJS
+		where SNO=#{no}
+	</select>
+
+	<select id="list" resultMap="subjectMap" parameterType="map">
+		select SNO, TITLE
+		from SE_SUBJS
+		order by SNO desc
+		limit #{startIndex}, #{pageSize}
+	</select>
+
+	<update id="update" parameterType="subjectVo">
+		update SE_SUBJS set
+		TITLE=#{title}, DEST=#{description}
+		where SNO=#{no}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		delete from SE_SUBJS
+		where	SNO=#{no}
+	</delete>
+
+</mapper>

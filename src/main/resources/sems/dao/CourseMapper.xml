@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sems.dao.CourseDao">
+	<resultMap type="sems.vo.CourseVo" id="courseMap">
+		<id column="CNO" property="no" />
+		<result column="TITLE" property="title" />
+    <result column="HOURS" property="hour" />		
+		<result column="DEST" property="description" />
+	</resultMap>
+
+	<insert id="insert" parameterType="courseVo">
+		insert into
+		SE_COURS(TITLE, DEST, HOURS)
+		values (#{title}, #{description}, #{hour})
+	</insert>
+
+	<select id="detail" parameterType="int" resultMap="courseMap">
+		select CNO, TITLE, DEST, HOURS
+		from SE_COURS
+		where CNO=#{no}
+	</select>
+
+	<select id="list" resultMap="courseMap" parameterType="map">
+		select CNO, TITLE
+		from SE_COURS
+		order by CNO desc
+		limit #{startIndex}, #{pageSize}
+	</select>
+
+	<update id="update" parameterType="courseVo">
+		update SE_COURS set
+		TITLE=#{title}, DEST=#{description}, HOURS=#{hour}
+		where CNO=#{no}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		delete from SE_COURS
+		where	CNO=#{no}
+	</delete>
+
+</mapper>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sems.dao.UserDao">
+  <resultMap type="sems.vo.UserVo" id="userMap">
+    <id column="UNO" property="no"/><!-- PK 컬럼에 대해서만 설정한다. -->
+    <result column="EMAIL" property="email"/>
+    <result column="PWD" property="password"/>
+    <result column="NAME" property="name"/>
+    <result column="TEL" property="tel"/>
+    <result column="FAX" property="fax"/>
+    <result column="POSTNO" property="postNo"/>
+    <result column="ADDR" property="address"/>
+    <result column="PHOT_PATH" property="photoPath"/>
+  </resultMap> 
+
+  <select id="getUser" parameterType="map" resultMap="userMap">
+    select UNO, NAME, EMAIL,TEL
+    from SE_USERS
+    where EMAIL=#{email} and PWD=#{password}
+  </select>
+
+	<insert id="insert" parameterType="userVo">
+		insert into 
+		SE_USERS(EMAIL, PWD, NAME, TEL, FAX, POSTNO, ADDR, PHOT_PATH)
+		values (#{email}, #{password}, #{name}, #{tel}, 
+		        #{fax}, #{postNo}, #{address}, #{photoPath})
+	</insert>
+
+  <select id="list" resultMap="userMap" parameterType="map">
+    select UNO, EMAIL, NAME, TEL
+    from SE_USERS
+    order by UNO desc
+    limit #{startIndex}, #{pageSize}
+  </select>
+
+	<select id="detail" parameterType="int" resultMap="userMap">
+		select UNO, EMAIL, NAME, TEL, FAX, POSTNO, ADDR, PHOT_PATH
+		from SE_USERS
+		where UNO=#{no}
+	</select>
+
+	<update id="update" parameterType="userVo">
+		update SE_USERS set
+		EMAIL=#{email},
+    PWD=#{password},
+    NAME=#{name},
+    TEL=#{tel},
+    FAX=#{fax},
+    POSTNO=#{postNo},
+    ADDR=#{address},
+    PHOT_PATH=#{photoPath}
+		where UNO=#{no}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		delete from SE_USERS
+		where UNO=#{no}
+	</delete>
+
+</mapper>
